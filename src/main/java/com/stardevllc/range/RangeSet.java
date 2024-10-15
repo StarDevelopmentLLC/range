@@ -10,7 +10,7 @@ import java.util.TreeSet;
  *
  * @param <V> The parameterized type of the value to represent
  */
-public class RangeSet<V> {
+public class RangeSet<V> implements Cloneable {
     protected SortedSet<Range<V>> ranges = new TreeSet<>();
 
     /**
@@ -216,6 +216,16 @@ public class RangeSet<V> {
             }
         }
         return max;
+    }
+    
+    @Override
+    public RangeSet<V> clone() {
+        RangeSet<V> clone = new RangeSet<>();
+        for (Range<V> range : this.ranges) {
+            clone.add(range.clone());
+        }
+        
+        return clone;
     }
 
     /**
