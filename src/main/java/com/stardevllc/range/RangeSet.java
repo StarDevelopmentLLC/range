@@ -18,6 +18,21 @@ public class RangeSet<V> implements Cloneable {
      */
     public RangeSet() {
     }
+    
+    public RangeSet(long firstMin, long firstMax, V firstValue, Object[] values) {
+        this.ranges.add(new Range<>(firstMin, firstMax, firstValue));
+
+        if (values != null) {
+            if (values.length % 3 == 0) {
+                for (int i = 0; i < values.length; i += 3) {
+                    long min = (long) values[i];
+                    long max = (long) values[i+1];
+                    V value = (V) values[i+2];
+                    this.ranges.add(new Range<>(min, max, value));
+                }
+            }
+        }
+    }
 
     /**
      * Constructs a RangeSet with an initial set of values. <br>
